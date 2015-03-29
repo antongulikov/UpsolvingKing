@@ -28,9 +28,18 @@ def show_inf(a):
 	for x in dir(a):
 		print x
 
+def rev(s):
+	b = list(s)
+	b.reverse()
+	return ''.join(b)
+
 def getProblem(t):
 #	print t
-	return t.text, 'http://community.topcoder.com' + t.findChildren('a')[0].get('href')
+	a = t.findChildren('a')[0].get('href')
+	a = rev(a)
+	a = a[:a.find('=')]
+	a = rev(a)
+	return t.text, a
 
 def getFullInf(data):
 	tmpLink = 1
@@ -60,9 +69,9 @@ def getFullInf(data):
 
 	return name, prLink, roundN, roundLink, tags	
 			
-print 'Problem Name, Problem Link, Contest Name, Contest Link, tags, solvedCount'
+print 'Problem Name, Problem Link {http://community.topcoder.com/stat?c=problem_statement&pm=}, Contest Name, Contest Link = {http://community.topcoder.com/stat?c=round_overview&rd=}, tags, solvedCount'
 
-for problemId in xrange(1, INF):
+for problemId in xrange(1,INF):
 
 	url = 'http://community.topcoder.com/tc?module=ProblemArchive&sr={0}&er={1}'.format(problemId, problemId)
 	response = requests.get(url)
@@ -74,7 +83,8 @@ for problemId in xrange(1, INF):
 		if t.text == 'details':
 			End = False
 			break
-
+	if End:
+		break
 	success = getSuccesAttempts(data)
 	nameProblem, problemLink, roundN, roundLink, tags = getFullInf(data)
 	tags = '[' + tags + ']' 
