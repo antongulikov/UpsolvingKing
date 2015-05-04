@@ -26,9 +26,10 @@ def create_users(username, password):
                 try:
                     new_problem = Problem(problem_name= x['problem']['name'],contest_id= x['problem']['contestId'], problem_id= x['problem']['index'])
                     new_problem.save()
-                    new_problem.kings.add(newUser)
                 except:
                     pass
+                new_problem = Problems.objects.filter(contest_id = x['problem']['contestId'], problem_id = x['problem']['index'])
+                new_problem.kings.add(newUser)
 
 
 
