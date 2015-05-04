@@ -1,0 +1,21 @@
+{%  extends 'mainPage.html' %}
+
+{% block loginBlock %}
+    <div class="large-offset-3 large-6 columns">
+        <form action="/auth/login/" method="post">
+            {% csrf_token %}
+            <label for="username">Login from codeforces.com</label>
+            <input type="text" name="username" id="username">
+            <br>
+            <label for="password">Password</label>
+            <br>
+            <input type="password" name="password" id="password">
+            {% if login_error %}
+                <br>
+                <label class="error">{{ login_error }}</label>
+            {% endif %}
+            <br>
+            <input class="button" type="submit" value="Войти">
+        </form>
+    </div>
+{% endblock %}

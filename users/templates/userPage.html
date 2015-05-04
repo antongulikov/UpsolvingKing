@@ -1,0 +1,10 @@
+{% extends 'mainPage.html' %}
+
+{% block problemList %}
+    {% for problem in problems %}
+        <a href = {{ problem.get_url }}>
+            {{  problem.problem_name }}
+            <br>
+        </a>
+    {% endfor %}
+{% endblock %}
