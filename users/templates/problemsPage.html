@@ -18,12 +18,12 @@
                 <div class="large-3 large-offset-5 columns">
                     <ul class="pagination">
                         {% if problems.has_previous %}
-                            <li class="arrow"><a href="/profile/scorpion/problems/page/{{ problems.previous_page_number }}/">&laquo;</a></li>
+                            <li class="arrow"><a href="/profile/{{ user }}/problems/page/{{ problems.previous_page_number }}/">&laquo;</a></li>
                         {% else %}
                             <li class="arrow unavailable"><a href="">&laquo;</a></li>
                         {% endif %}
                         {% if problems.has_next %}
-                            <li class="arrow"><a href="/profile/scorpion/problems/page/{{ problems.next_page_number }}/">&raquo;</a></li>
+                            <li class="arrow"><a href="/profile/{{ user }}/problems/page/{{ problems.next_page_number }}/">&raquo;</a></li>
                         {% else %}
                             <li class="arrow unavailable"><a href="">&raquo;</a></li>
                         {% endif %}
