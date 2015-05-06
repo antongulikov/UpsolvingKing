@@ -2,7 +2,7 @@
 
 {% block problemList %}
     {% for problem in problems %}
-        <a href = {{ problem.get_url }}>
+        <a href = {{ problem.get_url }} target="_blank">
             {{  problem.problem_name }}
             <br>
         </a>

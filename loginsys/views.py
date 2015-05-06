@@ -28,7 +28,7 @@ def create_users(username, password):
                     new_problem.save()
                 except:
                     pass
-                new_problem = Problems.objects.filter(contest_id = x['problem']['contestId'], problem_id = x['problem']['index'])
+                new_problem = Problem.objects.filter(contest_id = x['problem']['contestId'], problem_id = x['problem']['index'])[0]
                 new_problem.kings.add(newUser)
 
 
@@ -36,6 +36,21 @@ def create_users(username, password):
 def login(request):
 
     def find_in_codeforces(username, password):
+
+        try:
+            USERNAME = str(username)
+            PASSWORD = str(password)
+        except:
+            return False
+
+        submit_addr = "http://codeforces.com/profile/{}".format(USERNAME)
+
+        q = requests.get(submit_addr)
+        r = q.content
+        pos = r.find("<title>{} - Codeforces</title>".format(USERNAME))
+        return pos > -1
+
+    def find_in_codeforces2(username, password):
 
         csrf_token = "5556167d8d70662bc4332055fe4000f5"
         try:
@@ -72,33 +87,36 @@ def login(request):
     if request.POST:
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
-
+        error = ""
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
             create_users(username, password)
             return redirect('/')
         else:
-            if find_in_codeforces(username, password):
-                tmp = request.POST
-                tmp['password2'] = password
-                tmp['password1'] = password
-
-                try:
-                    del tmp['password']
-                except:
-                    pass
-
-                userform = UserCreationForm(tmp)
-                userform.save()
-                newuser = auth.authenticate(username=username, password=password)
-                auth.login(request,newuser)
-                create_users(username, password)
-                return redirect('/')
+            if len(UpUser.objects.filter(username=username)) > 0:
+                error = error + "There is exists user with the same login, please retry.\n"
             else:
-                args['login_error'] = "You are not registered at codeforces.com"
-                return render_to_response('login.html', args)
+                if find_in_codeforces(username, password):
+                    tmp = request.POST
+                    tmp['password2'] = password
+                    tmp['password1'] = password
+
+                    try:
+                        del tmp['password']
+                    except:
+                        pass
+
+                    userform = UserCreationForm(tmp)
+                    userform.save()
+                    newuser = auth.authenticate(username=username, password=password)
+                    auth.login(request,newuser)
+                    create_users(username, password)
+                    return redirect('/')
+                else:
+                    error = error + "You are not registered at codeforces.com"
+            args['login_error'] = error
+            return render_to_response('login.html', args)
 
     else:
         return render_to_response('login.html', args)
-

@@ -90,7 +90,7 @@
         <a href = "/auth/login/">Log in</a>
     {% endif %}
     </div>
-    <h1>Upsolving King</h1>
+    <h1><a href ="/">Upsolving King</a></h1>
 
 
 
@@ -98,6 +98,7 @@
 <div id="left_column">
 {% if user %}
     <h1><a href = "/profile/{{ user }}"> {{ user }}</a></h1>
+    <a href = /profile/ {{ user }}"> <img src="http://codeforces.ru/userphoto/title/{{ user }}/photo.jpg" width = "200" height="200"></a>
     <br>
 {% else %}
  Anonymous
