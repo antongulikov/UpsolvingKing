@@ -1,0 +1,35 @@
+{% extends 'mainPage.html' %}
+
+{% if user %}
+
+    {% block problems %}
+
+        <div class="large-8 columns">
+          {% for problem in problems %}
+            <a href = {{ problem.get_url }} target="_blank">
+                {{  problem.problem_name }}
+            </a>
+            <br>
+          {% endfor %}
+
+        </div>
+
+            <div class="row">
+                <div class="large-3 large-offset-5 columns">
+                    <ul class="pagination">
+                        {% if problems.has_previous %}
+                            <li class="arrow"><a href="/profile/scorpion/problems/page/{{ problems.previous_page_number }}/">&laquo;</a></li>
+                        {% else %}
+                            <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                        {% endif %}
+                        {% if problems.has_next %}
+                            <li class="arrow"><a href="/profile/scorpion/problems/page/{{ problems.next_page_number }}/">&raquo;</a></li>
+                        {% else %}
+                            <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+        </div>
+    {% endblock %}
+
+{% endif %}
