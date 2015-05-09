@@ -16,6 +16,7 @@ class Problem(models.Model):
     problem_id = models.CharField(max_length=1, null=False)
     site = models.CharField(max_length=200, default="codeforces")
     solved = models.IntegerField(default=0)
+    users = models.ManyToManyField('UpUser')
 
     def get_url(self):
         if self.site == "codeforces":

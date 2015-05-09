@@ -4,16 +4,16 @@ from models import UpUser, Tag, Problem, TagProblem, UserTag
 # Register your models here.
 
 class UpUserAdmin(admin.ModelAdmin):
-    fields = ['username', 'rating', 'watched']
-    list_filter = ['username', 'rating', 'watched']
-    list_display = ['username', 'rating', 'watched']
+    fields = ['username']
+    list_filter = ['username']
+    list_display = ['username']
 
 admin.site.register(UpUser, UpUserAdmin)
 
 class TagAdmin(admin.ModelAdmin):
     fields = ['name']
     list_filter =  ['name']
-    list_display = ['name' ,]
+    list_display = ['name']
 
 admin.site.register(Tag, TagAdmin)
 
