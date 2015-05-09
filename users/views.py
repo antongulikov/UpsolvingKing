@@ -1,10 +1,18 @@
 from django.shortcuts import render
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import render_to_response, redirect
-from users.models import UpUser
+from users.models import UpUser, UserTag
 from django.core.paginator import Paginator
 
 # Create your views here.
+
+def showStat(request, username):
+        user = UpUser.objects.get(username=username)
+        tags = UserTag.objects.filter(user=user)
+        args = {}
+        args['user'] = user.username
+        args['tags'] = tags
+        return render_to_response('userStat.html', args)
 
 def userProblem(request, username, page_number = 1):
     try:

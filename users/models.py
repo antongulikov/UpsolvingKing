@@ -60,6 +60,8 @@ class UserTag(models.Model):
     def __unicode__(self):
         return self.user.username + ' ' + self.tag.name + ' = ' + str(self.power)
 
+    def get_tag(self):
+        return self.tag.name
 
     user = models.ForeignKey(UpUser)
     tag = models.ForeignKey('Tag')
