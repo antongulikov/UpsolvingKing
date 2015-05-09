@@ -4,119 +4,98 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
-from users.models import UpUser
-from problems.models import Problem
+from users.models import UpUser, Problem
+from helpscript.additon import update_user_tag_relationship
 
 
 def logout(request):
     auth.logout(request)
     return redirect('/')
 
-def create_users(username, password):
-    try:
-        user = 1 / len(UpUser.objects.filter(username=username))
-    except:
-        newUser = UpUser(username=username, password=password)
-        newUser.save()
-        q = requests.get('http://www.codeforces.com/api/user.status?handle={}&from=1&count=10000'.format(username))
-        q = q.text
-        data = json.loads(q)
-        for x in data['result']:
-            if x['verdict'] == 'OK':
-                try:
-                    new_problem = Problem(problem_name= x['problem']['name'],contest_id= x['problem']['contestId'], problem_id= x['problem']['index'])
-                    new_problem.save()
-                except:
-                    pass
-                new_problem = Problem.objects.filter(contest_id = x['problem']['contestId'], problem_id = x['problem']['index'])[0]
-                new_problem.kings.add(newUser)
+def update_user(username, rating):
+    user = ""
+    if (len(UpUser.objects.filter(username=username)) > 0):
+        user = UpUser.objects.get(username=username)
+        user.rating = rating
+        user.save()
+    else:
+        user = UpUser(username=username, rating=rating)
+        user.save()
+    q = requests.get('http://www.codeforces.com/api/user.status?handle={}&from=1&count=10000000'.format(username))
+    q = q.text
+    data = json.loads(q)
+    current_watched = user.watched
+    if data['status'] == 'OK':
+        size_of_current_data = len(data['result'])
+        if current_watched == 0:
+            data = data['result']
+        else:
+            data = data['result'][:-current_watched]
+        user.watched = size_of_current_data
+        user.save()
+        for x in data:
+            if x['verdict'] == 'OK' and x['contestId'] < 10**5:
+                problem = Problem.objects.get(problem_name=x['problem']['name'], contest_id = x['problem']['contestId'])
+                solved = problem.solved
+                tags = [x.name for x in problem.tag_set.all()]
+                for _tag in tags:
+                    update_user_tag_relationship(username, _tag, solved)
 
 
 
 def login(request):
 
-    def find_in_codeforces(username, password):
+    def find_in_cf(username):
+
+        USERNAME = ""
 
         try:
             USERNAME = str(username)
-            PASSWORD = str(password)
         except:
             return False
 
-        submit_addr = "http://codeforces.com/profile/{}".format(USERNAME)
-
-        q = requests.get(submit_addr)
-        r = q.content
-        pos = r.find("<title>{} - Codeforces</title>".format(USERNAME))
-        return pos > -1
-
-    def find_in_codeforces2(username, password):
-
-        csrf_token = "5556167d8d70662bc4332055fe4000f5"
-        try:
-            USERNAME = str(username)
-            PASSWORD = str(password)
-        except:
-            return False
-
-        parts = {
-            "csrf_token": csrf_token,
-            "action": "enter",
-            "handle":USERNAME,
-            "password":PASSWORD,
-            "_tta":"111",
-            "ftaa":"41mqknjyviqj",
-            "bfaa":"b12df922eb8f1e"
-        }
-
-        submit_addr = "http://codeforces.com/enter/"
-
-        q = requests.get(submit_addr)
-        r = q.content
-        pos = r.find("-Token\" content=")
-        r = r[pos+17:]
-        csrf_token = r[:r.find('\"')]
-        q = requests.post(submit_addr, data=parts, params={"csrf_token": csrf_token})
-        return q.content.find("<div class=\"for-avatar\"><div class=\"avatar\"><a href=\"/profile/%s\">" % USERNAME) > -1
-
-
-
+    request_result = request.get('http://codeforces.com/api/user.info?handles={}'.format(USERNAME))
+    request_result = request_result.text
+    result_data = json.loads(request_result)
+    if result_data['status'] != 'OK':
+        return None
+    return result_data['result']['rating']
 
     args = {}
     args.update(csrf(request))
     if request.POST:
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
+        username = request.POST.get('handle', '')
+        password = username
         error = ""
+        rating = find_in_cf(username)
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            create_users(username, password)
+            update_user(username, rating)
             return redirect('/')
         else:
-            if len(UpUser.objects.filter(username=username)) > 0:
-                error = error + "There is exists user with the same login, please retry.\n"
-            else:
-                if find_in_codeforces(username, password):
+                if rating is not None:
                     tmp = request.POST
-                    tmp['password2'] = password
-                    tmp['password1'] = password
+                    tmp['username'] = username
+                    tmp['password2'] = username
+                    tmp['password1'] = username
 
                     try:
                         del tmp['password']
+                        del tmp['handle']
                     except:
                         pass
 
                     userform = UserCreationForm(tmp)
                     userform.save()
-                    newuser = auth.authenticate(username=username, password=password)
+                    newuser = auth.authenticate(username=username, password=username)
                     auth.login(request,newuser)
-                    create_users(username, password)
+                    update_user(username, rating)
                     return redirect('/')
                 else:
                     error = error + "You are not registered at codeforces.com"
-            args['login_error'] = error
-            return render_to_response('login.html', args)
+                args['login_error'] = error
+                return render_to_response('login.html', args)
 
     else:
         return render_to_response('login.html', args)

@@ -23,17 +23,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'xfxm(!&r9g(sl$k$vds+bc8v4yn7!5jw&7r_ansvzqo-w+(*=v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['scorpionby.pythonanywhere.com']
+
+WAY_PATH = '/home/scorpionby/upking/'
 
 
 # Application definition
 
 TEMPLATE_DIRS = (
-    '/home/scorpionby/upking/upking/loginsys/templates/',
-    '/home/scorpionby/upking/upking/mainpage/templates/',
-    '/home/scorpionby/upking/upking/users/templates/',
+    WAY_PATH + 'upking/loginsys/templates/',
+    WAY_PATH + 'upking/mainpage/templates/',
+    WAY_PATH + 'upking/users/templates/',
 )
 
 INSTALLED_APPS = (
@@ -45,7 +47,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'loginsys',
     'mainpage',
-    'problems',
     'users',
 )
 
@@ -110,4 +111,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/home/scorpionby/upking/static"
+STATIC_ROOT = WAY_PATH + "upking/static"
