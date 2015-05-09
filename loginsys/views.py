@@ -35,11 +35,16 @@ def update_user(username, rating):
         user.save()
         for x in data:
             if x['verdict'] == 'OK' and x['contestId'] < 10**5:
-                problem = Problem.objects.get(problem_name=x['problem']['name'], contest_id = x['problem']['contestId'])
-                solved = problem.solved
-                tags = [x.name for x in problem.tag_set.all()]
-                for _tag in tags:
-                    update_user_tag_relationship(username, _tag, solved)
+                    problem = Problem.objects.get(problem_name=x['problem']['name'], contest_id = x['problem']['contestId'])
+
+                    solved = problem.solved
+
+                    tags = [x.name for x in problem.tag_set.all()]                    
+
+                    for _tag in tags:
+                        update_user_tag_relationship(username, _tag, solved)
+                       # print _tag, username, 'sdkljsdlj'
+
 
 def find_in_cf(username):
 

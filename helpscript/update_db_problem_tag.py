@@ -49,6 +49,7 @@ def main():
             tag.save()
 
     for stat in statistic:
+        print stat['contestId'],' ',stat['index']
         problem = Problem.objects.get(contest_id = stat['contestId'], problem_id = stat['index'])
         problem.solved = stat['solvedCount']
         problem.save()
