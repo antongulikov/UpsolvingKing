@@ -54,7 +54,7 @@ def login(request):
         except:
             return False
 
-    request_result = request.get('http://codeforces.com/api/user.info?handles={}'.format(USERNAME))
+    request_result = requests.get('http://codeforces.com/api/user.info?handles={}'.format(USERNAME))
     request_result = request_result.text
     result_data = json.loads(request_result)
     if result_data['status'] != 'OK':
