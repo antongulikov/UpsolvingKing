@@ -41,25 +41,25 @@ def update_user(username, rating):
                 for _tag in tags:
                     update_user_tag_relationship(username, _tag, solved)
 
+def find_in_cf(username):
 
+    USERNAME = ""
 
-def login(request):
-
-    def find_in_cf(username):
-
-        USERNAME = ""
-
-        try:
-            USERNAME = str(username)
-        except:
-            return False
+    try:
+        USERNAME = str(username)
+    except:
+        return False
 
     request_result = requests.get('http://codeforces.com/api/user.info?handles={}'.format(USERNAME))
     request_result = request_result.text
     result_data = json.loads(request_result)
     if result_data['status'] != 'OK':
         return None
-    return result_data['result']['rating']
+    return int(result_data['result'][0]['rating'])
+
+
+def login(request):
+
 
     args = {}
     args.update(csrf(request))

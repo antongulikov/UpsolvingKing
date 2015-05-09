@@ -83,7 +83,7 @@ class TagProblem(models.Model):
         unique_together = (('tag', 'problem'), )
 
     def __unicode__(self):
-        return self.cnt_solved
+        return self.tag.name + self.problem.problem_name
 
 
     tag = models.ForeignKey(Tag)

@@ -4,7 +4,7 @@ from models import UpUser, Tag, Problem, TagProblem, UserTag
 # Register your models here.
 
 class UpUserAdmin(admin.ModelAdmin):
-    fields = ['username', 'password']
+    fields = ['username']
     list_filter = ['username']
     list_display = ['username']
 

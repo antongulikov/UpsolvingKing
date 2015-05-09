@@ -17,7 +17,7 @@ def rating_by_power(x):
     return 3000 * x / (20. + x)
 
 def update_user_tag_relationship(USERNAME, TAG, SOLVED):
-    tag_object = Tag.objects.get(tag = TAG)
+    tag_object = Tag.objects.get(name = TAG)
     user = UpUser.oobject.get(username = USERNAME)
     userRating = user.rating
     usertag = None
