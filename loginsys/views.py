@@ -1,11 +1,12 @@
 import requests
 import json
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
 from users.models import UpUser, Problem
-from helpscript.additon import update_user_tag_relationship
+from helpscript.additon import *
 
 
 def logout(request):
@@ -34,16 +35,19 @@ def update_user(username, rating):
         user.watched = size_of_current_data
         user.save()
         for x in data:
-            if x['verdict'] == 'OK' and x['contestId'] < 10**5:
-                    problem = Problem.objects.get(problem_name=x['problem']['name'], contest_id = x['problem']['contestId'])
-
-                    solved = problem.solved
-
-                    tags = [x.name for x in problem.tag_set.all()]                    
-
-                    for _tag in tags:
-                        update_user_tag_relationship(username, _tag, solved)
-                       # print _tag, username, 'sdkljsdlj'
+            if x['verdict'] == 'OK' and x['contestId'] < 10**5 and len(x['problem']['tags']) > 0:
+                problem = None
+                if len(Problem.objects.filter(problem_name=x['problem']['name'], contest_id = x['problem']['contestId'], problem_id = x['problem']['index'])) > 0:
+                    problem = Problem.objects.filter(problem_name=x['problem']['name'], contest_id = x['problem']['contestId'], problem_id = x['problem']['index'])[0]
+                elif len(Problem.objects.filter(problem_name=x['problem']['name'], contest_id = (-1+x['problem']['contestId']), problem_id = x['problem']['index'])) > 0:
+                    problem = Problem.objects.filter(problem_name=x['problem']['name'], contest_id = (-1 + x['problem']['contestId']), problem_id = x['problem']['index'])[0]
+                else:
+                    print 2
+                    continue
+                solved = problem.solved
+                tags = [w.name for w in problem.tag_set.all()]
+                for _tag in tags:
+                    update_user_tag_relationship(username, _tag, solved)
 
 
 def find_in_cf(username):
