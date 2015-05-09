@@ -35,5 +35,5 @@ class UserTagAdmin(admin.ModelAdmin):
     list_filter = ['user', 'power']
     list_display = ['user', 'tag', 'power']
 
-admin.site.register(UserTag, UserTagADmin)
+admin.site.register(UserTag, UserTagAdmin)
 
