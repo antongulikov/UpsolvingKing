@@ -18,7 +18,7 @@ def rating_by_power(x):
 
 def update_user_tag_relationship(USERNAME, TAG, SOLVED):
     tag_object = Tag.objects.get(name = TAG)
-    user = UpUser.oobject.get(username = USERNAME)
+    user = UpUser.object.get(username = USERNAME)
     userRating = user.rating
     usertag = None
     try:
