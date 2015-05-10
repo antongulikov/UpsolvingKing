@@ -7,12 +7,16 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def showStat(request, username):
+    try:
         user = UpUser.objects.get(username=username)
         tags = UserTag.objects.filter(user=user)
+        tags = sorted(tags, key = lambda x : -x.power)
         args = {}
         args['user'] = user.username
-        args['tags'] = tags
+        args['tags'] = tags[:10]
         return render_to_response('userStat.html', args)
+    except:
+        return redirect('/')
 
 def userProblem(request, username, page_number = 1):
     try:

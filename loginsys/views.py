@@ -32,6 +32,7 @@ def update_user(username, rating):
             data = data['result']
         else:
             data = data['result'][:-current_watched]
+        data.reverse()
         user.watched = size_of_current_data
         user.save()
         for x in data:
