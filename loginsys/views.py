@@ -32,7 +32,6 @@ def update_user(username, rating):
             data = data['result']
         else:
             data = data['result'][:-current_watched]
-        data.reverse()
         user.watched = size_of_current_data
         user.save()
         for x in data:
@@ -112,3 +111,13 @@ def login(request):
 
     else:
         return render_to_response('login.html', args)
+
+def updateInf(request):
+    username = ""
+    try:
+        username = auth.get_user(request).username
+    except:
+        return redirect('/')
+    rating = find_in_cf(username)
+    update_user(username, rating)
+    return redirect('/')

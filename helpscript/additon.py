@@ -27,3 +27,18 @@ def update_user_tag_relationship(user, tag_object, SOLVED):
     delta = point(userRating, rating_by_power(power), SOLVED)
     usertag.power = power + delta
     usertag.save()
+
+def generate_problems(username, *tags):
+    user = UpUser.objects.get(username= username)
+    tags = list(tags)
+    problems = Problem.objects.exclude(users__in=[user.id])
+    curTags = []
+    for tag in tags:
+        if len(Tag.objects.filter(name=tag)):
+            curTags.append(Tag.objects.filter(name=tag)[0])
+    if len(curTags) == 0:
+        return problems[:5]
+    else:
+        return problems[:3]
+
+
