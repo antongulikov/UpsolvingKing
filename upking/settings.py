@@ -36,6 +36,7 @@ TEMPLATE_DIRS = (
     WAY_PATH + 'upking/loginsys/templates/',
     WAY_PATH + 'upking/mainpage/templates/',
     WAY_PATH + 'upking/users/templates/',
+    WAY_PATH + 'upking/generate/templates/'
 )
 
 INSTALLED_APPS = (
@@ -48,6 +49,7 @@ INSTALLED_APPS = (
     'loginsys',
     'mainpage',
     'users',
+    'generate'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -111,4 +113,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = WAY_PATH + "static"
+STATIC_ROOT = WAY_PATH + 'static/'

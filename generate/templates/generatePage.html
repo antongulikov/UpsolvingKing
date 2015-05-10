@@ -1,0 +1,23 @@
+{% extends 'mainPage.html' %}
+{% load staticfiles %}
+
+{% block generate %}
+    <legend>First tag</legend>
+    <select name = 'tag1'>
+        {% for tag in tags %}
+            <option>{{ tag }}</option>
+        {% endfor %}
+    </select>
+    <legend>Second tag</legend>
+    <select name = 'tag2'>
+        {% for tag in tags %}
+            <option>{{ tag }}</option>
+        {% endfor %}
+    </select>
+    <legend>Third tag</legend>
+    <select name = 'tag3'>
+        {% for tag in tags %}
+            <option>{{ tag }}</option>
+        {% endfor %}
+    </select>
+{% endblock %}
