@@ -112,10 +112,10 @@
 
 </div>
 <div id="main">
-
-{% block mainPage %}
+{%  if main %}
 Upsolving king is easy tool to control your problem solving activity. It will help you find problems those fit your skills and interests.
-{% endblock %}
+{% endif %}
+{% block generate %} {% endblock %}
 
 {% block problems %} {% endblock %}
 
