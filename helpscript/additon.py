@@ -99,7 +99,7 @@ def generate_problems(username, *tags):
                 usertag = UserTag.objects.get(tag = tag, user = user)
             except:
                 usertag = UserTag.objects.create(tag = tag, user = user)
-            us.append(rating_by_power(usertag.power) / float(3000) * 10000.0)
+            us.append(rating_by_power(usertag.power) + 0.7 * user.rating)
         rbp = rating_by_power(usertag.power)
         centroids = [Point(0, us, user.id, 1)]
         data = [Point(0, us, user.id, 1)]
@@ -143,7 +143,7 @@ def generate_problems(username, *tags):
                 break
         data = [x for x in data if x.cluster == cluster]
         data = sorted(data, key=lambda x: dist(x.coordinates, userPoint.coordinates))
-        data = data[:10]
+        data = data[2:12]
         result = []
         for x in data:
             result.append(Problem.objects.get(id=x.ide))
