@@ -143,7 +143,7 @@ def generate_problems(username, *tags):
                 break
         data = [x for x in data if x.cluster == cluster]
         data = sorted(data, key=lambda x: dist(x.coordinates, userPoint.coordinates))
-        data = data[:10]
+        data = data[2:12]
         result = []
         for x in data:
             result.append(Problem.objects.get(id=x.ide))
