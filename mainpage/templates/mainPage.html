@@ -11,7 +11,7 @@
      }
      #left_column {
        float: left;
-       height: 200px;
+       height: 100%;
        width: 20%;
        background: #407F7F;
        padding: 10px;
@@ -49,13 +49,16 @@
      #main {
        background: #669999;
        padding: 15px;
-       width: 70%;
+       width: 60%;
        border: 1px dashed;
        margin: 3px;
      /*  float: left;*/
        display: inline-block;
      }
+     #all {
+       width: 80%;
 
+     }
      h1 {
          font-size: 36px;
          font-weight: bold;
@@ -82,6 +85,7 @@
     </script>
 </head>
 <body onload = "stretch()">
+<div id="all" align=center>
 <div id="header">
     <div style="float:right;">
     {% if user %}
@@ -120,10 +124,12 @@ Upsolving king is easy tool to control your problem solving activity. It will he
 
 {% block problems %} {% endblock %}
 
+{% block statisticshow %} {% endblock %}
 
 </div>
 <div id="footer">
     Silver Marriage, 2015
+</div>
 </div>
 </body>
 </html>

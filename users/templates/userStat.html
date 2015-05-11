@@ -1,16 +1,13 @@
+{% extends "mainPage.html" %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>{{ user }} Statistic</title>
-		<script src="{% static "Chart/Chart.js" %}"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	</head>
-	<body>
-		<div style="width:70%">
+
+{% block statisticshow %}
+
+		<div style="width:40%">
 			<canvas id="canvas" height="450" width="450"></canvas>
 		</div>
-
+      <script src="{% static "Chart/Chart.js" %}"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
 
 	var radarChartData = {
@@ -51,8 +48,8 @@
 		window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
 			responsive: true
 		});
+		stretch();
 	}
 
 	</script>
-	</body>
-</html>
+{% endblock %}
