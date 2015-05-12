@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
-from views import mainPage
+from views import mainPage, lolPage
 
-urlpatterns = [ url(r'^', mainPage)]
+urlpatterns = [ url(r'^lol', lolPage), url(r'^', mainPage),
+                ]

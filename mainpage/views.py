@@ -9,4 +9,7 @@ from django.shortcuts import render_to_response
 def mainPage(request):
     return render_to_response('mainPage.html', {'user': auth.get_user(request).username, 'main' : True})
 
+def lolPage(request):
+    return render_to_response('lolPage.html')
+
 
