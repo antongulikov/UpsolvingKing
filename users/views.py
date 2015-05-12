@@ -16,7 +16,7 @@ def showStat(request, username):
         args['tags'] = tags[:10]
         return render_to_response('userStat.html', args)
     except:
-        return redirect('/')
+        return redirect('/qwe')
 
 def userProblem(request, username, page_number = 1):
     try:

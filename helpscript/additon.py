@@ -128,8 +128,6 @@ def generate_problems(username, *tags):
                 if sum(dictq[problem.id]) > 0:
                     data.append(Point(2, dictq[problem.id],problem.id))
 
-        for x in data:
-            print x.coordinates
 
         for k_mean_iter in range(10):
             print k_mean_iter
