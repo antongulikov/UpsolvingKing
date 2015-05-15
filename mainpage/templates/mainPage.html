@@ -1,8 +1,27 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Upsolving King</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static "bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+    <script>
+        function stretch()
+        {
+            var body = document.body,
+            html = document.documentElement;
+
+            var height = Math.max( body.scrollHeight, body.offsetHeight,
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+            var u = document.getElementById("left_column").offsetHeight;
+            u = Math.max(u, height);
+           // alert(u);
+
+            document.getElementById("left_column").style.height = u+"px";
+            //alert("!!!");
+        }
+    </script>
     <style>
      body {
        margin: 0;
@@ -67,26 +86,9 @@
      }
 
     </style>
-    <script>
-        function stretch()
-        {
-            var body = document.body,
-            html = document.documentElement;
-
-            var height = Math.max( body.scrollHeight, body.offsetHeight,
-                       html.clientHeight, html.scrollHeight, html.offsetHeight );
-            var u = document.getElementById("left_column").offsetHeight;
-            u = Math.max(u, height);
-           // alert(u);
-
-            document.getElementById("left_column").style.height = u+"px";
-            //alert("!!!");
-        }
-    </script>
 </head>
 <body onload = "stretch()">
-<div id="header">
-    <div style="float:right;">
+     <div style="float:right;">
     {% if user %}
         <a href = "/auth/logout/">Log out ({{ user }})</a>
     {%  else %}
@@ -94,9 +96,6 @@
     {% endif %}
     </div>
     <h1><a href ="/">Upsolving King</a></h1>
-
-
-
 </div>
 <div id="left_column">
 {% if user %}
@@ -106,7 +105,7 @@
     <a href = "/profile/{{ user }}/problems/"> Problems </a><br>
     <a href = "/profile/{{ user }}/statistic/"> Statistics</a><br>
     <a href = "/generate/{{ user }}/"> Generate </a><br>
-    <a href = "/update/"> Update Information </a>
+    <a href = "/update/"> Update Information </a><br>
     <a href = "/lol/"> lol </a>
     <br>
 {% else %}
@@ -114,7 +113,6 @@
 {% endif %}
 
 {% block loginBlock %} {% endblock %}
-
 </div>
 <div id="main">
 {%  if main %}
@@ -128,7 +126,10 @@ Upsolving king is easy tool to control your problem solving activity. It will he
 
 </div>
 <div id="footer">
-    Silver Marriage, 2015
+    <div class = "container"></div>
+    <div class = "col-sm-10"></div>
+    <div class = "col-sm-2">Silver Marriage, 2015</div>
+</div>
 </div>
 </body>
 </html>

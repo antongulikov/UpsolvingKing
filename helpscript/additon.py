@@ -15,7 +15,7 @@ def rating_by_power(x):
         x = float(x)
     except:
         return 0
-    return 3000 * x / (10. + x)
+    return 3000 * x / (20. + x)
 
 def update_user_tag_relationship(user, tag_object, SOLVED):
     userRating = user.rating
@@ -92,6 +92,8 @@ def generate_problems(username, *tags):
     if len(curTags) == 0:
         return problems[:5]
     else:
+        cnt1 = float(10) / float(3) * 0.6
+        cnt2 = float(10) / float(3) * 0.4
         us = []
         for tag in curTags:
             usertag = 1
@@ -99,7 +101,7 @@ def generate_problems(username, *tags):
                 usertag = UserTag.objects.get(tag = tag, user = user)
             except:
                 usertag = UserTag.objects.create(tag = tag, user = user)
-            us.append(rating_by_power(usertag.power) + 0.7 * user.rating)
+            us.append(rating_by_power(usertag.power) * cnt2 + user.rating * cnt1)
         rbp = rating_by_power(usertag.power)
         centroids = [Point(0, us, user.id, 1)]
         data = [Point(0, us, user.id, 1)]

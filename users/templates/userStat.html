@@ -26,8 +26,8 @@
 			{
 				label: "{{ user }} statistic",
 				fillColor: "rgba(220,220,220,0.2)",
-				strokeColor: "rgba(220,220,220,1)",
-				pointColor: "rgba(220,220,220,1)",
+				strokeColor: "rgba(220,0,220,1)",
+				pointColor: "rgba(220,0,0,1)",
 				pointStrokeColor: "#fff",
 				pointHighlightFill: "#fff",
 				pointHighlightStroke: "rgba(220,220,220,1)",
@@ -46,7 +46,8 @@
 
 	window.onload = function(){
 		window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
-			responsive: true
+			responsive: true,
+			pointLabelFontColor : "#222"
 		});
 		stretch();
 	}

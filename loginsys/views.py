@@ -67,7 +67,10 @@ def find_in_cf(username):
     result_data = json.loads(request_result)
     if result_data['status'] != 'OK':
         return None
-    return int(result_data['result'][0]['rating'])
+    try:
+        return int(result_data['result'][0]['rating'])
+    except:
+        return 0
 
 
 def login(request):
