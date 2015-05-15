@@ -4,9 +4,9 @@ from models import UpUser, Tag, Problem, TagProblem, UserTag
 # Register your models here.
 
 class UpUserAdmin(admin.ModelAdmin):
-    fields = ['username']
+    fields = ['username', 'isActive', 'watched']
     list_filter = ['username']
-    list_display = ['username']
+    list_display = ['username', 'isActive', 'watched']
 
 admin.site.register(UpUser, UpUserAdmin)
 

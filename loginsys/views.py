@@ -57,16 +57,14 @@ class UpdateThread(Thread):
         self.rating = rating
 
     def run(self):
-        if (len(UpUser.objects.filter(username=self.username)) == 0):
-            user = UpUser(username=self.username, rating=self.rating)
+        user = None
+        if len(UpUser.objects.filter(username=self.username)) == 0:
+            user = UpUser(username=self.username, rating=self.rating, isActive = False)
             user.isActive = False
             user.save()
-
-        user = UpUser.objects.get(username = self.username)
-
+        user = UpUser.objects.get(username=self.username)
         if user.isActive:
             return
-
         user.isActive = True
         user.save()
         update_user(self.username, self.rating)
