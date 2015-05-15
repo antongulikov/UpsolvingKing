@@ -42,6 +42,7 @@ class UpUser(models.Model):
     username = models.CharField(max_length=200, unique=True)
     rating = models.IntegerField(null=False)
     watched = models.IntegerField(default=0)
+    isActive = models.BooleanField(default=True)
 
     def get_rating(self):
         if self.rating < 0:
