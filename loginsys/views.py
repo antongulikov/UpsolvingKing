@@ -7,11 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
 from users.models import UpUser, Problem
 from helpscript.additon import *
-
-
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
+from threading import Thread
 
 def update_user(username, rating):
     user = ""
@@ -53,6 +49,23 @@ def update_user(username, rating):
                     update_user_tag_relationship(user, _tag, solved)
 
 
+class UpdateThread(Thread):
+
+    def __init__(self, username, rating):
+        Thread.__init__(self)
+        self.username = username
+        self.rating = rating
+
+    def run(self):
+        update_user(self.username, self.rating)
+
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+
 def find_in_cf(username):
 
     USERNAME = ""
@@ -83,7 +96,9 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            update_user(username, rating)
+            updUser = UpdateThread(username, rating)
+            updUser.start()
+            #update_user(username, rating)
             return redirect('/')
         else:
                 if rating is not None:
@@ -102,7 +117,10 @@ def login(request):
                     userform.save()
                     newuser = auth.authenticate(username=username, password=username)
                     auth.login(request,newuser)
-                    update_user(username, rating)
+                    updUser = UpdateThread(username, rating)
+                    updUser.start()
+
+                    #update_user(username, rating)
                     return redirect('/')
                 else:
                     error = error + "You are not registered at codeforces.com"
@@ -119,5 +137,8 @@ def updateInf(request):
     except:
         return redirect('/')
     rating = find_in_cf(username)
-    update_user(username, rating)
+    updUser = UpdateThread(username, rating)
+    updUser.start()
+
+    #update_user(username, rating)
     return redirect('/')
