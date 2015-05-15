@@ -14,6 +14,7 @@ def showStat(request, username):
         args = {}
         args['user'] = user.username
         args['tags'] = tags[:10]
+
         return render_to_response('userStat.html', args)
     except:
         return redirect('/qwe')

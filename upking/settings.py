@@ -49,7 +49,7 @@ INSTALLED_APPS = (
     'loginsys',
     'mainpage',
     'users',
-    'generate'
+    'generate',
 )
 
 MIDDLEWARE_CLASSES = (
