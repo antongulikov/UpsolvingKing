@@ -13,7 +13,7 @@ class Problem(models.Model):
 
     problem_name = models.CharField(max_length=300, null=False)
     contest_id = models.IntegerField(null=False)
-    problem_id = models.CharField(max_length=1, null=False)
+    problem_id = models.CharField(max_length=3, null=False)
     site = models.CharField(max_length=200, default="codeforces")
     solved = models.IntegerField(default=0)
     users = models.ManyToManyField('UpUser')
