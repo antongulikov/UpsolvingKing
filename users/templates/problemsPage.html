@@ -1,0 +1,45 @@
+{% extends 'mainPage.html' %}
+
+{% if user %}
+
+    {% block problems %}
+    <div class = "container">
+    <div class = "col-sm-3"> </div>
+    <div class = "col-sm-5">
+                  {% for problem in problems %}
+            <a href = {{ problem.get_url }} target="_blank">
+                {{  problem.problem_name }}
+            </a>
+            <br>
+          {% endfor %}
+</div>
+<div class = "col-sm-5"> </div>
+
+    </div>
+ <div class = "container">
+<div class = "col-sm-3"> </div>
+                    <ul class="pagination">
+
+                        {% if problems.has_previous %}
+
+                            <li class="arrow"><a href="/profile/{{ user }}/problems/page/{{ problems.previous_page_number }}/">Калининград</a></li>
+                        {% else %}
+                            <li class="arrow unavailable"><a href="">Калининград</a></li>
+
+                        {% endif %}
+
+
+                        {% if problems.has_next %}
+
+                            <li class="arrow"><a href="/profile/{{ user }}/problems/page/{{ problems.next_page_number }}/">Владивасток</a></li>
+                        {% else %}
+                            <li class="arrow unavailable"><a href="">Владивасток</a></li>
+
+                        {% endif %}
+
+                    </ul>
+    </div>
+
+    {% endblock %}
+
+{% endif %}

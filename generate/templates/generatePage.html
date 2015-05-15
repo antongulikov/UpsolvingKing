@@ -1,0 +1,69 @@
+<head>
+
+<style>
+    .tagbox::after {
+        content: '';
+        display: block;
+        clear: both;
+        height: 0px;
+        visibility: hidden;
+    }
+    .tagbox .tag {
+        float:left;
+        width: 200px;
+    }
+    
+</style>
+</head>
+
+<body>
+{% extends 'mainPage.html' %}
+{% load staticfiles %}
+ 
+{% block generate %}
+    <form action="/generate/{{ user }}/" method="post">
+        {% csrf_token %}
+        <div class="tagbox">
+            <div class="tag">
+                <legend>First tag</legend>
+                <select name = 'tag1' id = 'tag1'>
+                    {% for tag in tags %}
+                        <option>{{ tag }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="tag">
+                <legend>Second tag</legend>
+                <select name = 'tag2' id  = 'tag2'>
+                    {% for tag in tags %}
+                        <option>{{ tag }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="tag">
+                <legend>Third tag</legend>
+                <select name = 'tag3' id = 'tag3'>
+                    {% for tag in tags %}
+                        <option>{{ tag }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="sub" style="text-align :center;">
+            <input type="submit" value="Go">
+        </div>
+    </form>
+
+    <br>
+    <br>
+
+    {% for problem in problems %}
+        <a href = {{ problem.get_url }} target="_blank">
+            {{  problem.problem_name }}
+        </a>
+        <br>
+    {% endfor %}
+
+{% endblock %}
+</body>
