@@ -22,17 +22,17 @@
             //alert("!!!");
         }
     </script>
-    <style>
+       <style>
      body {
        margin: 0;
-       background: #226666;
+       background: #000000;
        color: #002424;
      }
      #left_column {
        float: left;
        height: 100%;
        width: 20%;
-       background: #407F7F;
+       background: #000000;
        padding: 10px;
        margin: 2px;
        border: 1px;
@@ -43,49 +43,53 @@
         color: #FFFFFF;
      }
      #header a:hover {
-        color: #407F7F;
+        color: #FFFFFF;
      }
 
      #left_column a {
          color: #FFFFFF;
      }
      #left_column a:hover {
-        color: #226666;
+        color: #FFFFFF;
      }
 
      #header {
        width: 100%;
-       background: #0D4D4D;
+       background: #FFFFFF;
        color: #FFFFFF;
      }
      #footer {
        clear: both;
        width: 100%;
-       background: #0D4D4D;
+       background: #AAAAAA;
        color: #FFFFFF;
 
      }
      #main {
-       background: #669999;
-       padding: 15px;
-       width: 60%;
+       background: #dddddd;
+       padding: 30px;
+       width: 75%;
        border: 1px dashed;
-       margin: 3px;
+       margin: 2px;
      /*  float: left;*/
        display: inline-block;
      }
      #all {
-       width: 80%;
+       width: 100%;
 
      }
      h1 {
          font-size: 36px;
          font-weight: bold;
-         color: #669999;
+         color: #dddddd;
          margin: 0px;
+     }
+     label {
+        color : #dddddd;
      }
 
     </style>
+
 </head>
 <body onload = "stretch()">
      <div style="float:right;">
@@ -100,13 +104,13 @@
 <div id="left_column">
 {% if user %}
     <h1><a href = "/profile/{{ user }}/"> {{ user }}</a></h1>
-    <a href = "/profile/{{ user }}/"> <img src="http://codeforces.ru/userphoto/title/{{ user }}/photo.jpg" width = "200" height="200"></a>
+    <h3><a href = "/profile/{{ user }}/"> <img styly="margin:auto" src="http://codeforces.ru/userphoto/title/{{ user }}/photo.jpg" width = "200" height="200"></a></h3>
     <br>
-    <a href = "/profile/{{ user }}/problems/"> Problems </a><br>
-    <a href = "/profile/{{ user }}/statistic/"> Statistics</a><br>
-    <a href = "/generate/{{ user }}/"> Generate </a><br>
-    <a href = "/update/"> Update Information </a><br>
-    <a href = "/lol/"> lol </a>
+    <h3><a href = "/profile/{{ user }}/problems/"> Problems </a><br></h3>
+    <h3><a href = "/profile/{{ user }}/statistic/"> Statistics</a><br></h3>
+    <h3><a href = "/generate/{{ user }}/"> Generate </a><br></h3>
+    <h3><a href = "/update/"> Update Information </a><br></h3>
+    <h3><a href = "/lol/"> lol </a></h3>
     <br>
 {% else %}
  <h1>Anonymus</h1>
@@ -115,6 +119,7 @@
 {% block loginBlock %} {% endblock %}
 </div>
 <div id="main">
+<div class = "container">
 {%  if main %}
 Upsolving king is easy tool to control your problem solving activity. It will help you find problems those fit your skills and interests.
 {% endif %}
@@ -123,7 +128,7 @@ Upsolving king is easy tool to control your problem solving activity. It will he
 {% block problems %} {% endblock %}
 
 {% block statisticshow %} {% endblock %}
-
+</div>
 </div>
 <div id="footer">
     <div class = "container"></div>

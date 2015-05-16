@@ -25,6 +25,7 @@ def userProblem(request, username, page_number = 1):
         user = UpUser.objects.get(username=username)
         args['user'] = user.username
         all_problems = user.problem_set.all()
+        all_problems = sorted(all_problems, key = lambda x : x.id)
         current_page = Paginator(all_problems, 20)
         args['problems'] = current_page.page(page_number)
         return render_to_response('problemsPage.html', args)

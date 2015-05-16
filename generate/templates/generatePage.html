@@ -12,18 +12,20 @@
         float:left;
         width: 200px;
     }
-    
+
 </style>
 </head>
 
 <body>
 {% extends 'mainPage.html' %}
 {% load staticfiles %}
- 
+
 {% block generate %}
-    <form action="/generate/{{ user }}/" method="post">
+<form action="/generate/{{ user }}/" method="post">
         {% csrf_token %}
         <div class="tagbox">
+            <div class = "container">
+                <div class = "col-sm-2">
             <div class="tag">
                 <legend>First tag</legend>
                 <select name = 'tag1' id = 'tag1'>
@@ -32,6 +34,9 @@
                     {% endfor %}
                 </select>
             </div>
+            </div>
+            <div class = "col-sm-1"></div>
+            <div class = "col-sm-2">
             <div class="tag">
                 <legend>Second tag</legend>
                 <select name = 'tag2' id  = 'tag2'>
@@ -40,6 +45,9 @@
                     {% endfor %}
                 </select>
             </div>
+            </div>
+            <div class = "col-sm-1"></div>
+            <div class = "col-sm-2">
             <div class="tag">
                 <legend>Third tag</legend>
                 <select name = 'tag3' id = 'tag3'>
@@ -48,10 +56,15 @@
                     {% endfor %}
                 </select>
             </div>
+            </div>
+            <div class = "col-sm-5"></div>
+            </div>
         </div>
-
-        <div class="sub" style="text-align :center;">
+        <div class="container">
+            <div class = "col-sm-4"></div>
+        <div class="sub">
             <input type="submit" value="Go">
+        </div>
         </div>
     </form>
 
