@@ -60,7 +60,7 @@
             <div class = "col-sm-2">
             <div class="tag">
                 <legend>Third tag</legend>
-                <select name = 'tag3' id = 'tag3'>
+                <select name = 'tag3' id  = 'tag3'>
                     {% for tag in tags %}
                         {% if tag == tag3 %}
                             <option selected="selected">
@@ -75,23 +75,34 @@
             <div class = "col-sm-5"></div>
             </div>
         </div>
+        <br><br>
         <div class="container">
             <div class = "col-sm-4"></div>
         <div class="sub">
-            <input type="submit" value="Go">
+            <input type="submit" class = "btn btn-primary" value="Generate">
         </div>
         </div>
     </form>
 
     <br>
     <br>
-
+<div class = "container">
+    <div class = "col-sm-3"></div>
+    <div class = "col-sm-4">
     {% for problem in problems %}
         <a href = {{ problem.get_url }} target="_blank">
             {{  problem.problem_name }}
         </a>
+        {% for key, value in data.items %}
+            {% if key == key %}
+                <li>{{ value.cnt_solved }}</li>
+            {% endif %}
+        {% endfor %}
         <br>
     {% endfor %}
+    </div>
+    <div class = "col-sm-4"></div>
+    </div>
 
 {% endblock %}
 </body>
