@@ -16,21 +16,34 @@ def generate(request, username):
     if request.POST:
         tag1 = request.POST.get('tag1', '')
         tag2 = request.POST.get('tag2', '')
-        tag3 = request.POST.get('tag3', '')        
-        result = generate_problems(username, tag1, tag2, tag3)        
+        tag3 = request.POST.get('tag3', '')
+        result = generate_problems(username, tag1, tag2, tag3)
         args['problems'] = result
         cnt = 0
         data = {}
         for pr in result:
             tmp = TagProblem.objects.filter(problem=pr)
             lst = []
-            for x in tmp:                
+            for x in tmp:
+                tl = None
                 if len(UserTag.objects.filter(user=user, tag=x.tag)) == 0:
-                    UserTag.objects.create(user=user, tag=x.tag)
-                tl = UserTag.objects.get(user=user, tag=x.tag)
+                    try:
+                        tl = UserTag.objects.create(user=user, tag=x.tag)
+                    except:
+                        pass
+                if len(UserTag.objects.filter(user=user, tag=x.tag)) != 0:
+                    tl = UserTag.objects.filter(user=user, tag=x.tag)[0]
+                if tl == None:
+                    continue
                 rating = point(user.rating, rating_by_power(tl.power), x.cnt_solved)
                 name = x.tag.name
                 lst.append((name, rating, x.cnt_solved))
+            sumx = 0
+            for a,b,c in lst :
+                sumx += b
+            sumx = sumx / float(len(lst))
+            sumx = sumx * 1.001
+            lst.append(('middle value', sumx, 0))
             data[pr.problem_name] = lst
         args['data'] = data
         args['tag1'] = tag1

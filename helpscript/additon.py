@@ -6,7 +6,7 @@ def point(userRating, tagRating, solved):
     rating = float(userRating * 0.7 + tagRating * 0.3)
     solved = float(solved)
     f1_value = 1.0 / (1.0 + math.e ** (-rating / float(300) + 5.0))
-    f2_value = math.log(solved / float(100) + 1.0)
+    f2_value = math.log(solved / float(500) + 1.0)
     result = 1.0 / (1.0 + math.e ** (math.sqrt(f1_value * rating / float(3000) + f2_value * solved / float(2000))))
     return result
 

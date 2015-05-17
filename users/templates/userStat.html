@@ -4,7 +4,16 @@
 {% block statisticshow %}
         <div style="width:80%">
 		<canvas id="canvas" margin="auto"></canvas>
+		<br><br><br>
+
+		<form action = "" method = "post" align = "center">
+		    {% csrf_token %}
+		    <label for="cnt" style="color : #005555">Show First N tags statistics</label>
+            <input type="text" name="cnt" id="cnt">
+            <input class="btn btn-success" type="submit" value="Show">
+		</form>
 		</div>
+
       <script src="{% static "Chart/Chart.js" %}"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>

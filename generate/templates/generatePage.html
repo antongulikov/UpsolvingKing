@@ -12,7 +12,6 @@
         float:left;
         width: 200px;
     }
-
 </style>
 </head>
 
@@ -29,7 +28,7 @@
             <div class = "container">
                 <div class = "col-sm-2">
             <div class="tag">
-                <legend>First tag</legend>
+                <legend align = "center">First tag</legend>
                 <select name = 'tag1' id = 'tag1'>
                     {% for tag in tags %}
                         {% if tag == tag1 %}
@@ -45,7 +44,7 @@
             <div class = "col-sm-1"></div>
             <div class = "col-sm-2">
             <div class="tag">
-                <legend>Second tag</legend>
+                <legend align = "center">Second tag</legend>
                 <select name = 'tag2' id  = 'tag2'>
                     {% for tag in tags %}
                         {% if tag == tag2 %}
@@ -61,7 +60,7 @@
             <div class = "col-sm-1"></div>
             <div class = "col-sm-2">
             <div class="tag">
-                <legend>Third tag</legend>
+                <legend align = "center">Third tag</legend>
                 <select name = 'tag3' id  = 'tag3'>
                     {% for tag in tags %}
                         {% if tag == tag3 %}
@@ -86,12 +85,10 @@
         </div>
     </form>
 
-    <br>
-    <br>
     {% for problem in problems %}
     <div class = "container">
     <div class = "col-sm-4"></div>
-    <div class = "col-sm-4">
+    <div class = "col-sm-3">
 
         <a href = {{ problem.get_url }} target="_blank">
             {{  problem.problem_name }}
@@ -99,15 +96,17 @@
     </div>
         <div class = "col-sm-4"></div>
     </div>
+    <div class = "container">
+        <div class = "col-sm-1"></div>
         <table>
         <td>
-        <div style = "width : 50%">
-        <canvas id = "canvas{{forloop.counter}}" width = "1500" height = "300"></canvas>
+        <div style = "width : 50%" align = "center">
+        <canvas id = "canvas{{forloop.counter}}" width="1500px" height = "400"></canvas>
         </div>
-        
+
         </td>
         </table>
-        <br>
+    </div>
     {% endfor %}
 
 <script>
@@ -126,9 +125,9 @@
                 ],
     		datasets : [
 			{
-				fillColor : "rgba(120,120,120,0.5)",
-				strokeColor : "rgba(120,120,120,0.8)",
-				highlightFill: "rgba(120,120,120,0.75)",
+				fillColor : "rgba(120,220,20,0.5)",
+				strokeColor : "rgba(120,20,220,0.8)",
+				highlightFill: "rgba(220,20,120,0.75)",
 				highlightStroke: "rgba(120,120,120,1)",
 				data : [
 				    {% for tag, rat, sol in value %}
