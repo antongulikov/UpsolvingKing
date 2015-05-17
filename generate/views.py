@@ -19,6 +19,9 @@ def generate(request, username):
         print tag1, tag2, tag3
         result = generate_problems(username, tag1, tag2, tag3)
         args['problems'] = result
+        args['tag1'] = tag1
+        args['tag2'] = tag2
+        args['tag3'] = tag3
         return render_to_response('generatePage.html', args)
     else:
         return render_to_response('generatePage.html', args)

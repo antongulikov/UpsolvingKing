@@ -30,7 +30,12 @@
                 <legend>First tag</legend>
                 <select name = 'tag1' id = 'tag1'>
                     {% for tag in tags %}
-                        <option>{{ tag }}</option>
+                        {% if tag == tag1 %}
+                            <option selected="selected">
+                        {% else %}
+                            <option>
+                        {% endif %}
+                        {{ tag }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -41,7 +46,12 @@
                 <legend>Second tag</legend>
                 <select name = 'tag2' id  = 'tag2'>
                     {% for tag in tags %}
-                        <option>{{ tag }}</option>
+                        {% if tag == tag2 %}
+                            <option selected="selected">
+                        {% else %}
+                            <option>
+                        {% endif %}
+                        {{ tag }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -52,8 +62,13 @@
                 <legend>Third tag</legend>
                 <select name = 'tag3' id = 'tag3'>
                     {% for tag in tags %}
-                        <option>{{ tag }}</option>
-                    {% endfor %}
+                        {% if tag == tag3 %}
+                            <option selected="selected">
+                        {% else %}
+                            <option>
+                        {% endif %}
+                        {{ tag }}</option>
+                {% endfor %}
                 </select>
             </div>
             </div>
