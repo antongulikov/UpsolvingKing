@@ -55,7 +55,8 @@
 	window.onload = function(){
 		window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
 			responsive: true,
-			pointLabelFontColor : "#222"
+			pointLabelFontColor : "#222",
+			pointLabelFontSize: 20
 		});
 		stretch();
 	}

@@ -94,9 +94,9 @@
 <body onload = "stretch()">
      <div style="float:right;">
     {% if user %}
-        <a href = "/auth/logout/">Log out ({{ user }})</a>
+        <a href = "/auth/logout/"><button type="button" class="btn btn-primary btn-md">Log out ({{ user }})</button></a>
     {%  else %}
-        <a href = "/auth/login/">Log in</a>
+        <a href = "/auth/login/"><button type="button" class="btn btn-primary btn-md">Log in</button></a>
     {% endif %}
     </div>
     <h1><a href ="/">Upsolving King</a></h1>
@@ -110,7 +110,6 @@
     <h3><a href = "/profile/{{ user }}/statistic/"> Statistics</a><br></h3>
     <h3><a href = "/generate/{{ user }}/"> Generate </a><br></h3>
     <h3><a href = "/update/"> Update Information </a><br></h3>
-    <h3><a href = "/lol/"> lol </a></h3>
     <br>
 {% else %}
  <h1>Anonymus</h1>
