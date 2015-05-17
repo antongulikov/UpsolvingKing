@@ -89,6 +89,9 @@ class TagProblem(models.Model):
     def __unicode__(self):
         return self.tag.name + self.problem.problem_name
 
+    def ab(self):
+        return self.tag.name
+
 
     tag = models.ForeignKey(Tag)
     problem = models.ForeignKey(Problem)
