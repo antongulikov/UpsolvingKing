@@ -25,7 +25,6 @@ def showStat(request, username):
         if N < 0:
             N = 7
         tags = tags[:N]
-        shuffle(tags)
         args['tags'] = tags
 
         return render_to_response('userStat.html', args)

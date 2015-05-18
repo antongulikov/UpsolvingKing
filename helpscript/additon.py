@@ -108,8 +108,10 @@ def generate_problems(username, *tags):
         for num in range(10):
             newc = []
             for l in range(len(us)):
-                valrand = random.randint(100, 200)
-                randkoef = random.randint(-1,1)
+                valrand = random.randint(1000, 2000)
+                randkoef = 0
+                while randkoef == 0:
+                    randkoef = random.randint(-2,2)
                 newc.append(us[l] + valrand * randkoef)
             centroids.append(Point(1, newc, -1, num + 2))
         dictq = {}

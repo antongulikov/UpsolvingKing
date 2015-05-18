@@ -87,15 +87,14 @@
 
     {% for problem in problems %}
     <div class = "container">
-    <div class = "col-sm-4"></div>
-    <div class = "col-sm-5">
-
-       <h2> <a href = {{ problem.get_url }} target="_blank">
+            <div class = "col-sm-3"></div>
+        <div class = "col-sm-8">
+          <h2> <a href = {{ problem.get_url }} target="_blank">
             {{  problem.problem_name }}
         </a>
         </h2>
-    </div>
-        <div class = "col-sm-3"></div>
+        </div>
+
     </div>
     <div class = "container">
         <div class = "col-sm-1"></div>
