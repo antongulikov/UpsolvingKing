@@ -89,6 +89,13 @@ def generate_problems(username, *tags):
     for tag in tags:
         if len(Tag.objects.filter(name=tag)):
             curTags.append(Tag.objects.filter(name=tag)[0])
+
+    if len(curTags) == 0:
+        taggsAll = Tag.objects.all()
+        nn = len(taggsAll)
+        for i in xrange(2):
+            curTags.append(taggsAll[random.randint(0, nn-1)])
+
     if len(curTags) == 0:
         return problems[:5]
     else:
