@@ -22,7 +22,7 @@
             //alert("!!!");
         }
     </script>
-       <style>
+     <style>
      body {
        margin: 0;
        background: #000000;
@@ -33,7 +33,7 @@
        height: 100%;
        width: 20%;
        background: #000000;
-       padding: 10px;
+       padding: 0px;
        margin: 2px;
        border: 1px;
        display: inline;
@@ -55,8 +55,8 @@
 
      #header {
        width: 100%;
-       background: #FFFFFF;
-       color: #FFFFFF;
+       background: #000000;
+       color: #000000;
      }
      #footer {
        clear: both;
@@ -67,10 +67,10 @@
      }
      #main {
        background: #dddddd;
-       padding: 0px;
-       width: 70%;
+       padding: 0%;
+       width: 100%;
        border: 1px dashed;
-       margin: 2px;
+       margin-top: 5%;
      /*  float: left;*/
        display: inline-block;
      }
@@ -87,11 +87,12 @@
      label {
         color : #dddddd;
      }
-
-    </style>
-
+ </style>
 </head>
+
 <body onload = "stretch()">
+<div class = "container">
+<div class = "col-sm-12">
      <div style="float:right;">
     {% if user %}
         <a href = "/auth/logout/"><button type="button" class="btn btn-primary btn-md">Log out ({{ user }})</button></a>
@@ -101,10 +102,13 @@
     </div>
     <h1><a href ="/">Upsolving King</a></h1>
 </div>
-<div id="left_column">
+</div>
+<div class = "container">
+<div class = "col-sm-3">
+<div id = "left_column">
 {% if user %}
     <h1><a href = "/profile/{{ user }}/"> {{ user }}</a></h1>
-    <h3><a href = "/profile/{{ user }}/"> <img style="margin:auto" src="http://codeforces.ru/userphoto/title/{{ user }}/photo.jpg" width = "200" height="200"></a></h3>
+    <h3><a href = "/profile/{{ user }}/"> <img style="margin:auto" src="http://codeforces.ru/userphoto/title/{{ user }}/photo.jpg" width = "200"></a></h3>
     <br>
     <h3><a href = "/profile/{{ user }}/problems/"> Problems </a><br></h3>
     <h3><a href = "/profile/{{ user }}/statistic/"> Statistics</a><br></h3>
@@ -117,16 +121,18 @@
 
 {% block loginBlock %} {% endblock %}
 </div>
-<div id="main">
-<div class = "container">
+</div>
+<div class = "col-sm-9" >
+<div id = "main">
 {%  if main %}
-Upsolving king is easy tool to control your problem solving activity. It will help you find problems those fit your skills and interests.
+Upsolving king is an easy tool to control your problem solving activity. It will help you find problems those fit your skills and interests.
 {% endif %}
 {% block generate %} {% endblock %}
 
 {% block problems %} {% endblock %}
 
 {% block statisticshow %} {% endblock %}
+</div>
 </div>
 </div>
 <div id="footer">

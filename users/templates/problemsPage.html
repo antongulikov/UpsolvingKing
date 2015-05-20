@@ -3,9 +3,9 @@
 {% if user %}
 
     {% block problems %}
-    <div class = "container">
-    <div class = "col-sm-3"> </div>
-    <div class = "col-sm-5">
+
+    <div class = "row">
+    <div class = "col-sm-12" align = "center">
                   {% for problem in problems %}
             <a href = {{ problem.get_url }} target="_blank">
                 {{  problem.problem_name }}
@@ -13,11 +13,11 @@
             <br>
           {% endfor %}
 </div>
-<div class = "col-sm-5"> </div>
+
 
     </div>
- <div class = "container">
-<div class = "col-sm-3"> </div>
+ <div class = "row">
+<div class = "col-sm-12" align = "center">
                     <ul class="pagination">
 
                         {% if problems.has_previous %}
@@ -39,6 +39,7 @@
 
                     </ul>
     </div>
+     </div>
 
     {% endblock %}
 
